@@ -28,7 +28,7 @@ public class Vote implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String UniqueCode;
+    private String uniqueCode;
     @OneToMany
     private List<Candidate> candidate;
     private VotingState votingState;
@@ -38,7 +38,7 @@ public class Vote implements Serializable {
     }
 
     public Vote(String UniqueCode, List<Candidate> candidate, VotingState votingState) {
-        this.UniqueCode = UniqueCode;
+        this.uniqueCode = UniqueCode;
         this.candidate = candidate;
         this.votingState = votingState;
     }
@@ -81,14 +81,14 @@ public class Vote implements Serializable {
      * @return the UniqueCode
      */
     public String getUniqueCode() {
-        return UniqueCode;
+        return uniqueCode;
     }
 
     /**
      * @param UniqueCode the UniqueCode to set
      */
-    public void setUniqueCode(String UniqueCode) {
-        this.UniqueCode = UniqueCode;
+    public void setUniqueCode(String uniqueCode) {
+        this.uniqueCode = uniqueCode;
     }
 
     /**

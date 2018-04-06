@@ -102,4 +102,17 @@ public class VoterSessionBean implements VoterSessionBeanLocal {
             throw new VoteNotFoundException("Vote ID provided is Invalid!");
         }
     }
+    
+    @Override
+    public Vote getVoteByUniqueCode(String uniqueCode) throws VoteNotFoundException{
+     Query query = em.createQuery("SELECT v FROM Vote v WHERE v.uniqueCode = :code").setParameter("code", uniqueCode);
+        
+        System.err.println("****************Querying uniqueCode*******************");
+        
+        try {
+            return (Vote) query.getSingleResult();
+        } catch (NoResultException | NonUniqueResultException ex) {
+            throw new VoteNotFoundException("Vote Unique Code " + uniqueCode + " does not exist!");
+        }
+    }
 }
