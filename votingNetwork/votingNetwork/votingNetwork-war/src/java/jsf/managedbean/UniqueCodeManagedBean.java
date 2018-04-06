@@ -5,21 +5,61 @@
  */
 package jsf.managedbean;
 
+import ebj.session.stateless.VoterSessionBeanLocal;
+import entity.Vote;
+import exception.VoteNotFoundException;
+import java.io.IOException;
+import javax.ejb.EJB;
 import javax.inject.Named;
-import javax.enterprise.context.Dependent;
+import javax.enterprise.context.RequestScoped;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
+import javax.faces.event.ActionEvent;
 
 /**
  *
  * @author KaiCheng
  */
 @Named(value = "uniqueCodeManagedBean")
-@Dependent
+@RequestScoped
 public class UniqueCodeManagedBean {
+
+    @EJB(name = "VoterSessionBeanLocal")
+    private VoterSessionBeanLocal voterSessionBeanLocal;
 
     /**
      * Creates a new instance of UniqueCodeManagedBean
      */
+    
+    private String uniqueCode;
+    
     public UniqueCodeManagedBean() {
+        
     }
+    public void uniqueCodeSubmit(ActionEvent event) throws IOException{
+        try{
+            Vote vote =voterSessionBeanLocal.getVoteByUniqueCode(getUniqueCode());
+            FacesContext.getCurrentInstance().getExternalContext().getFlash().put("vote", vote);
+            FacesContext.getCurrentInstance().getExternalContext().redirect("voting.xhtml");
+            
+        }catch(VoteNotFoundException ex){
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Invalid Unique Code: " + ex.getMessage(), null)); 
+        }
+    }
+    /**
+     * @return the uniqueCode
+     */
+    public String getUniqueCode() {
+        return uniqueCode;
+    }
+
+    /**
+     * @param uniqueCode the uniqueCode to set
+     */
+    public void setUniqueCode(String uniqueCode) {
+        this.uniqueCode = uniqueCode;
+    }
+    
+    
     
 }
