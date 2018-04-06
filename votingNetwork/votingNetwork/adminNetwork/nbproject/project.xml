@@ -3,11 +3,12 @@
     <type>org.netbeans.modules.web.project</type>
     <configuration>
         <data xmlns="http://www.netbeans.org/ns/web-project/3">
-            <name>votingNetwork-war</name>
+            <name>adminNetwork</name>
             <minimum-ant-version>1.6.5</minimum-ant-version>
             <web-module-libraries>
                 <library dirs="100">
                     <file>${reference.votingNetwork-ejb.dist}</file>
+                    <path-in-war>WEB-INF/lib</path-in-war>
                 </library>
                 <library dirs="200">
                     <file>${libs.PrimeFaces_6.1.classpath}</file>
@@ -36,8 +37,5 @@
                 <id>dist</id>
             </reference>
         </references>
-        <spellchecker-wordlist xmlns="http://www.netbeans.org/ns/spellchecker-wordlist/1">
-            <word>nric</word>
-        </spellchecker-wordlist>
     </configuration>
 </project>
