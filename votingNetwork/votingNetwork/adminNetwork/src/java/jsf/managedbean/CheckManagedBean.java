@@ -17,6 +17,7 @@ import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -46,6 +47,13 @@ public class CheckManagedBean {
         }catch(VoterNotFoundException ex){
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Invalid NRIC: " + ex.getMessage(), null)); 
         }
+    }
+    
+    public void logout(ActionEvent event) throws IOException
+    {
+        System.err.println("*****************Logout of Website**********************");
+        ((HttpSession)FacesContext.getCurrentInstance().getExternalContext().getSession(true)).invalidate();
+        FacesContext.getCurrentInstance().getExternalContext().redirect("index.xhtml");
     }
 
     /**

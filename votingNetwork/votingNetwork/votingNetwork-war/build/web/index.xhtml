@@ -12,7 +12,8 @@
         <p:layout fullPage="true">
             <p:layoutUnit position="center">
                 <h:form id="VoterLoginForm" style="padding-left: 40%;padding-top: 10%">
-
+                    
+                    <p:clock timeZone="+8GMT"/>
                     <p style="font-family: serif;font-size: xx-large;font-weight: 900;margin-left: 70px;margin-bottom: 0px;color: darkblue">Voter Portal</p>
 
                     <p:graphicImage value="./images/assets/img_eld_logo.png"/>
@@ -27,7 +28,7 @@
                     </p:inputText>
                     <br/><br/>
 
-                    <h:outputLabel for="password" value="Password" />&nbsp;
+                    <h:outputLabel for="password" value="Password" />&nbsp;&nbsp;&nbsp;
                     <p:password id="password" value="#{voterLoginManagedBean.password}" required="true" requiredMessage="Password is required!">
                         <f:validateLength minimum="6" />
                     </p:password>

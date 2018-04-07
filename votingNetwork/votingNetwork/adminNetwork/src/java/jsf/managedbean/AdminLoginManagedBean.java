@@ -63,6 +63,7 @@ public class AdminLoginManagedBean {
     
     public void logout(ActionEvent event) throws IOException
     {
+        System.err.println("*****************Logout of Website**********************");
         ((HttpSession)FacesContext.getCurrentInstance().getExternalContext().getSession(true)).invalidate();
         FacesContext.getCurrentInstance().getExternalContext().redirect("index.xhtml");
     }
