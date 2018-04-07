@@ -38,6 +38,7 @@ public class UniqueCodeManagedBean {
     }
     public void uniqueCodeSubmit(ActionEvent event) throws IOException{
         try{
+            System.err.println("****************Trying to Query Unique Code*******************");
             Vote vote =voterSessionBeanLocal.getVoteByUniqueCode(getUniqueCode());
             FacesContext.getCurrentInstance().getExternalContext().getFlash().put("vote", vote);
             FacesContext.getCurrentInstance().getExternalContext().redirect("voting.xhtml");

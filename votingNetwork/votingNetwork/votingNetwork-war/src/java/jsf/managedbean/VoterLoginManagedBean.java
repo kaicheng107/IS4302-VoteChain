@@ -15,6 +15,7 @@ import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -35,16 +36,24 @@ public class VoterLoginManagedBean {
     
     public void login(ActionEvent event) throws IOException{
         try{
-                System.err.println("****************Trying to Login*******************");
+            System.err.println("****************Trying to Login*******************");
+            
             Voter voter = voterSessionBeanLocal.voterLogin(getNric(), getPassword());
             FacesContext.getCurrentInstance().getExternalContext().getSession(true);
             FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("isLogin", true);
             FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("voter", voter);
+            
             System.err.println("****************End of Login*******************");
             FacesContext.getCurrentInstance().getExternalContext().redirect("uniqueCode.xhtml");
         }catch(InvalidLoginCredentialException ex){
            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Invalid login credential: " + ex.getMessage(), null)); 
         }
+    }
+    
+    public void logout(ActionEvent event) throws IOException
+    {
+        ((HttpSession)FacesContext.getCurrentInstance().getExternalContext().getSession(true)).invalidate();
+        FacesContext.getCurrentInstance().getExternalContext().redirect("index.xhtml");
     }
     
     /**

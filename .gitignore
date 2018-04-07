@@ -1,1 +1,6 @@
 /votingNetwork/votingNetwork/adminNetwork/nbproject/private/
+/votingNetwork/votingNetwork/adminNetwork/build/
+/votingNetwork/votingNetwork/votingNetwork-ejb/build/
+/votingNetwork/votingNetwork/votingNetwork-ejb/dist/
+/votingNetwork/votingNetwork/adminNetwork/dist/
+/votingNetwork/votingNetwork/votingNetwork-war/dist/

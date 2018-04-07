@@ -8,35 +8,41 @@
         <title>Voting For Singapore Election</title>
     </h:head>
 
-    <h:form id="VoterLoginForm" style="padding-left: 40%;padding-top: 10%">
-        
-        <p style="font-family: serif;font-size: xx-large;font-weight: 900;margin-left: 70px;margin-bottom: 0px">Voter Portal</p>
-        
-        <p:graphicImage value="./images/assets/img_eld_logo.png"/>
-        
-        <p:growl autoUpdate="true" />
+    <h:body>
+        <p:layout fullPage="true">
+            <p:layoutUnit position="center">
+                <h:form id="VoterLoginForm" style="padding-left: 40%;padding-top: 10%">
 
-        <br/><br/>
-        <h:outputLabel for="nric" value="NRIC" />&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <p style="font-family: serif;font-size: xx-large;font-weight: 900;margin-left: 70px;margin-bottom: 0px;color: darkblue">Voter Portal</p>
 
-        <p:inputText id="nric" value="#{voterLoginManagedBean.nric}" required="true" requiredMessage="NRIC is required!">
-            <f:validateLength minimum="9" maximum="9" />
-        </p:inputText>
-        <br/><br/>
+                    <p:graphicImage value="./images/assets/img_eld_logo.png"/>
 
-        <h:outputLabel for="password" value="Password" />&nbsp;
-        <p:password id="password" value="#{voterLoginManagedBean.password}" required="true" requiredMessage="Password is required!">
-            <f:validateLength minimum="6" />
-        </p:password>
-        <br/><br/>
+                    <p:growl autoUpdate="true" />
 
-        &nbsp;&nbsp;&nbsp;&nbsp;
-        <p:commandButton type="reset" value="Clear" />
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        <p:commandButton value="Login" update="VoterLoginForm" actionListener="#{voterLoginManagedBean.login}" icon="ui-icon-key"/>
+                    <br/><br/>
+                    <h:outputLabel for="nric" value="NRIC" />&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+                    <p:inputText id="nric" value="#{voterLoginManagedBean.nric}" required="true" requiredMessage="NRIC is required!">
+                        <f:validateLength minimum="9" maximum="9" />
+                    </p:inputText>
+                    <br/><br/>
+
+                    <h:outputLabel for="password" value="Password" />&nbsp;
+                    <p:password id="password" value="#{voterLoginManagedBean.password}" required="true" requiredMessage="Password is required!">
+                        <f:validateLength minimum="6" />
+                    </p:password>
+                    <br/><br/>
+
+                    &nbsp;&nbsp;&nbsp;&nbsp;
+                    <p:commandButton type="reset" value="Clear" />
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <p:commandButton value="Login" update="VoterLoginForm" actionListener="#{voterLoginManagedBean.login}" icon="ui-icon-key"/>
 
 
-    </h:form>
+                </h:form>
 
+            </p:layoutUnit>
+        </p:layout>
+    </h:body>
 </html>
 
