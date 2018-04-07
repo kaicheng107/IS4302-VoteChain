@@ -11,10 +11,36 @@ and open the template in the editor.
       xmlns:p="http://primefaces.org/ui">
 
     <h:head>
-        <title>TODO supply a title</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <title>Update Of voting Status</title>
     </h:head>
     <h:body>
-        <div>TODO write content</div>
+        <p:layout fullPage="true">
+            <p:layoutUnit position="center" >
+                <p:panel rendered="#{updateNricManagedBean.notVoted == true}" styleClass="panelNoBorder" style="padding-left: 35%;padding-top: 10%">
+                    
+                    <p:outputLabel value="Do the NRIC belong to #{updateNricManagedBean.voter.firstName} #{updateNricManagedBean.voter.lastName}?"/>
+                    <br/><br/> 
+                    
+                    <p:outputLabel value="Voter has not voted!" style="margin-left: 8%"/>
+                    <br/>
+                    <p:outputLabel value="Do you wish to update the status to voted?"/>
+                    <br/><br/><br/> 
+                    <h:form style="margin-left: 10%">
+                        <p:commandButton actionListener="#{updateNricManagedBean.updateNric}" value="Update"/>
+                        <br/><br/>
+                        <p:commandButton actionListener="#{updateNricManagedBean.back}" value="Back" style="margin-left: 1%"/>
+                    </h:form>
+                </p:panel>
+                <p:panel rendered="#{updateNricManagedBean.notVoted == false}" styleClass="ui-noborder"  style="padding-left: 35%;padding-top: 10%">
+                <p:outputLabel value="Do the NRIC belong to #{updateNricManagedBean.voter.firstName} #{updateNricManagedBean.voter.lastName}?"/>
+                    <br/><br/><br/>
+                    <p:outputLabel value="Voter has voted or is not eligible for voting!"/>
+                    <br/><br/>
+                    <h:form style="margin-left: 13%">
+                        <p:commandButton actionListener="#{updateNricManagedBean.back}" value="Back"/>
+                    </h:form>
+                </p:panel>
+            </p:layoutUnit>
+        </p:layout>
     </h:body>
 </html>
