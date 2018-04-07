@@ -11,6 +11,7 @@ import entity.Vote;
 import exception.EDSNotFoundException;
 import exception.InvalidLoginCredentialException;
 import exception.VoteNotFoundException;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
@@ -31,7 +32,7 @@ public class EDSSessionBean implements EDSSessionBeanLocal {
     public EDSSessionBean() {
     }
     
-/******************************EDS Related EDS Function********************************************/
+//******************************EDS Related EDS Function********************************************
     @Override
     public EDS CreateEDS(EDS eds) {
         em.persist(eds);
@@ -66,7 +67,9 @@ public class EDSSessionBean implements EDSSessionBeanLocal {
     }
     
     
-    /****************************** Voting Related EDS Functions ********************************************/
+    //****************************** Voting Related EDS Functions*********************************************
+    
+    
     //Create New Candidate
     @Override
     public Candidate CreateCandidate(Candidate cand){
@@ -74,6 +77,11 @@ public class EDSSessionBean implements EDSSessionBeanLocal {
         em.flush();
         
         return cand;
+    }
+    
+    @Override
+    public List<Candidate> getAllCandidate(){
+        return em.createQuery("SELECT c FROM Candidate c ORDER BY c.id ASC").getResultList();
     }
     
     //Use for create Vote

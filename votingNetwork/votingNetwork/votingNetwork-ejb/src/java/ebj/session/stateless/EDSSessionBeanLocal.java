@@ -11,6 +11,7 @@ import entity.Vote;
 import exception.EDSNotFoundException;
 import exception.InvalidLoginCredentialException;
 import exception.VoteNotFoundException;
+import java.util.List;
 import javax.ejb.Local;
 
 /**
@@ -33,4 +34,6 @@ public interface EDSSessionBeanLocal {
     public Vote GetVoteById(Long id) throws VoteNotFoundException;
 
     public void UpdateVote(Vote vote) throws VoteNotFoundException;
+
+    public List<Candidate> getAllCandidate();
 }

@@ -1,4 +1,4 @@
-/*
+ /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -6,7 +6,6 @@
 package jsf.managedbean;
 
 import ebj.session.stateless.EDSSessionBeanLocal;
-import entity.Admin;
 import entity.EDS;
 import exception.InvalidLoginCredentialException;
 import java.io.IOException;
