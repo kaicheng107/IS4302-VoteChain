@@ -57,7 +57,7 @@ public class AdminLoginManagedBean {
     HttpServletRequest req = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
     String url = req.getRequestURL().toString();
     String pathImg =url.substring(0, url.length() - req.getRequestURI().length()) + "/votingNetwork-war/images/assets/img_eld_logo.png";
-    System.out.println("*********Image Path using code**********"+pathImg);
+    //System.out.println("*********Image Path using code**********"+pathImg);
     return url.substring(0, url.length() - req.getRequestURI().length()) + "/votingNetwork-war/images/assets/img_eld_logo.png";
     }
     

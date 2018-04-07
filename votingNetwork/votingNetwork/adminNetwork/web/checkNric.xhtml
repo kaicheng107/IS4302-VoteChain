@@ -11,10 +11,34 @@ and open the template in the editor.
       xmlns:p="http://primefaces.org/ui">
 
     <h:head>
-        <title>TODO supply a title</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <title>Checking Nric...</title>
     </h:head>
     <h:body>
-        <div>TODO write content</div>
+        <p:layout fullPage="true">
+            <p:layoutUnit position="center">
+
+                <h:form id="CheckForm" style="padding-left: 38%;padding-top: 13%">
+
+                    <p:growl autoUpdate="true" />
+
+                    <p:outputLabel value="Hi #{sessionScope['admin'].name}" style="font-family: serif;font-size: xx-large;font-weight: 900;margin-left: 5%;"/>
+                    <br/><br/>
+                    <p:outputLabel value="Enter walk in voter NRIC :"/>
+                    <br/><br/>
+
+                    <p:outputLabel for="nric" value="NRIC"/>
+                    
+                    <p:inputText id="nric" value="#{checkManagedBean.nric}" required="true" requiredMessage="NRIC is required!">
+                        <f:validateLength minimum="9" maximum="9" />
+                    </p:inputText>
+                    
+                    <br/><br/>
+                                        
+                    <p:commandButton value="Submit" update="CheckForm" actionListener="#{checkManagedBean.CheckNric}" style="margin-left: 11%"/>
+
+                </h:form>
+
+            </p:layoutUnit>
+        </p:layout>
     </h:body>
 </html>

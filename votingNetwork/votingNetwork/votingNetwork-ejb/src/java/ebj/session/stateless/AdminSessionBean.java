@@ -75,7 +75,7 @@ public class AdminSessionBean implements AdminSessionBeanLocal {
         try {
             return (Voter) query.getSingleResult();
         } catch (NoResultException | NonUniqueResultException ex) {
-            throw new VoterNotFoundException("Voter NRIC " + nric + "does not exist!");
+            throw new VoterNotFoundException("Voter NRIC " + nric + " does not exist!");
         }
     }
 
