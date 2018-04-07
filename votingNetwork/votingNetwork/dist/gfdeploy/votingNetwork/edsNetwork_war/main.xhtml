@@ -1,0 +1,20 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./template/edsTemplate.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui">
+
+    <ui:define name="title">
+        <title>main page</title>
+    </ui:define>
+
+    <ui:define name="content">
+        <p style="font-family: serif;font-size: xx-large;font-weight: 900;">
+            Hi #{sessionScope['eds'].name}, this is the EDS main panel!
+        </p>
+        
+    </ui:define>
+
+</ui:composition>

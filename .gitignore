@@ -4,3 +4,6 @@
 /votingNetwork/votingNetwork/votingNetwork-ejb/dist/
 /votingNetwork/votingNetwork/adminNetwork/dist/
 /votingNetwork/votingNetwork/votingNetwork-war/dist/
+/votingNetwork/votingNetwork/edsNetwork/nbproject/private/
+/votingNetwork/votingNetwork/edsNetwork/build/
+/votingNetwork/votingNetwork/edsNetwork/dist/
