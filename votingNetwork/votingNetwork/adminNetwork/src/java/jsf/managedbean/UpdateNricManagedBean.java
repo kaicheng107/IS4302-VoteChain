@@ -50,6 +50,8 @@ public class UpdateNricManagedBean {
         try{
             
         adminSessionBeanLocal.updateVoterStatus((Voter) FacesContext.getCurrentInstance().getExternalContext().getFlash().get("voter"));
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "The status of the voter have being updated!", null));
+        FacesContext.getCurrentInstance().getExternalContext().getFlash().setKeepMessages(true);
         FacesContext.getCurrentInstance().getExternalContext().redirect("checkNric.xhtml");
         }catch(VoterNotFoundException ex){
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Invalid NRIC: " + ex.getMessage(), null)); 

@@ -25,8 +25,11 @@ and open the template in the editor.
                     <br/>
                     <p:outputLabel value="Do you wish to update the status to voted?"/>
                     <br/><br/><br/> 
-                    <h:form style="margin-left: 10%">
-                        <p:commandButton actionListener="#{updateNricManagedBean.updateNric}" value="Update"/>
+                    <h:form id="updateForm" style="margin-left: 10%">
+                        
+                        <p:growl autoUpdate="true" />
+                        
+                        <p:commandButton update="updateForm" actionListener="#{updateNricManagedBean.updateNric}" value="Update"/>
                         <br/><br/>
                         <p:commandButton actionListener="#{updateNricManagedBean.back}" value="Back" style="margin-left: 1%"/>
                     </h:form>
