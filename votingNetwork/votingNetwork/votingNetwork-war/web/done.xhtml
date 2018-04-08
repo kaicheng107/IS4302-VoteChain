@@ -9,11 +9,17 @@ and open the template in the editor.
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:p="http://primefaces.org/ui">
-    <head>
-        <title>TODO supply a title</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    </head>
-    <body>
-        <div>TODO write content</div>
-    </body>
+    <h:head>
+        <title>Thank you for Voting</title>
+    </h:head>
+    <h:body>
+        <p:layout fullPage="true">
+            <p:layoutUnit position="center">
+                <h:form style="margin-left: 43.2%;margin-top: 13%" >
+                    <p:outputLabel value="Thank you for you valuable vote!" style="margin-left: -7%"/><br/><br/>
+                    <p:commandButton value="Logout" actionListener="#{voterLoginManagedBean.logout}" style="width: 150px;height: 50px;font-size: x-large"/>
+                </h:form>
+            </p:layoutUnit>
+        </p:layout>
+    </h:body>
 </html>
