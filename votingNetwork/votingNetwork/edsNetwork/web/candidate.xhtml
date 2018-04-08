@@ -17,10 +17,10 @@
                 <p:menuitem value="Create new Candidate" onclick="PF('dialogCreateNewCandidate').show()" icon="ui-icon-plusthick" />
             </p:menubar>
         </h:form>
-        
+
         <h:form id="formAllCandidate">
             <p:messages id="messages" redisplay="false" closable="true" />
-            
+
             <p:dataTable id="dataTableAllCandidate" widgetVar="dataTableAllCandidate" value="#{candidateManagedBean.candidateList}" var="candidate" 
                          rowKey="#{candidate.id}" rowIndexVar="row" filteredValue="#{candidateManagedBean.filteredCandidateList}"
                          rows="10" paginator="true" paginatorTemplate="{CurrentPageReport} {FirstPageLink} 
@@ -32,33 +32,33 @@
                         <p:inputText id="globalFilter" onkeyup="PF('dataTableAllCandidate').filter()" style="width:300px" placeholder="Enter keyword"/>
                     </p:outputPanel>
                 </f:facet>
-                
+
                 <p:column headerText="Candidate ID" sortBy="#{candidate.id}" filterBy="#{candidate.id}" filterMatchMode="contains">
                     <h:outputText value="#{candidate.id}"/>
                 </p:column>
-                
+
                 <p:column headerText="Candidate Name" sortBy="#{candidate.candidateName}" filterBy="#{candidate.candidateName}" filterMatchMode="contains">
                     <h:outputText value="#{candidate.candidateName}"/>
                 </p:column>
-                
+
                 <p:column headerText="Candidate ID" sortBy="#{candidate.vote}" filterBy="#{candidate.vote}" filterMatchMode="contains">
                     <h:outputText value="#{candidate.vote}"/>
                 </p:column>
 
             </p:dataTable>
-            
+
             <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
                 <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
                 <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
             </p:confirmDialog>
-            
+
         </h:form>
-        
+
         <h:form>
             <p:dialog id="dialogCreateNewCandidate" widgetVar="dialogCreateNewCandidate" header="Create new Candidate" closable="true">
-                
+
                 <p:messages id="messagesCreateNewCandidate" redisplay="false"/>
-                
+
                 <p:row>
                     <p:column>
                         <p:outputLabel for="candidateName" value="Candidate Name: "/>
@@ -78,14 +78,14 @@
                         <p:commandButton type="reset" value="Clear"/>
                         &nbsp;
                         <p:commandButton value="Create New Candidate" update="@form formAllCandidate:dataTableAllCandidate" 
-                        actionListener="#{candidateManagedBean.createNewCandidate}" 
-                        oncomplete="PF('dialogCreateNewCandidate').show()"/>
+                                         actionListener="#{candidateManagedBean.createNewCandidate}" 
+                                         oncomplete="PF('dialogCreateNewCandidate').show()"/>
                     </p:column>
                 </p:row>
             </p:dialog>
         </h:form>
-        
-        
+
+
     </ui:define>
 
 </ui:composition>

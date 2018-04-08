@@ -10,6 +10,7 @@ import entity.EDS;
 import entity.Vote;
 import exception.EDSNotFoundException;
 import exception.InvalidLoginCredentialException;
+import exception.NotUniqueCodeException;
 import exception.VoteNotFoundException;
 import java.util.List;
 import javax.ejb.Local;
@@ -29,11 +30,14 @@ public interface EDSSessionBeanLocal {
 
     public Candidate CreateCandidate(Candidate cand);
 
-    public Vote CreateVote(Vote vote);
+    public Vote CreateVote(Vote vote)throws NotUniqueCodeException;
 
     public Vote GetVoteById(Long id) throws VoteNotFoundException;
 
     public void UpdateVote(Vote vote) throws VoteNotFoundException;
 
     public List<Candidate> getAllCandidate();
+
+    public List<Vote> getAllVote();
+
 }

@@ -4,13 +4,134 @@
                 template="./template/edsTemplate.xhtml"
                 xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:h="http://xmlns.jcp.org/jsf/html"
-                xmlns:p="http://primefaces.org/ui">
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
     <ui:define name="title">
         <title>Vote Details</title>
     </ui:define>
 
     <ui:define name="content">
-        content
-    </ui:define>
+        <h:form>
+            <p:menubar>
+                <p:menuitem value="Create new Vote" onclick="PF('dialogCreateNewVote').show()" icon="ui-icon-plusthick" />
+            </p:menubar>
+        </h:form>
 
+        <h:form id="formAllVote">
+            <p:messages id="messages" redisplay="false" closable="true" />
+            <p:dataTable id="dataTableAllVote" widgetVar="dataTableAllVote" value="#{voteManagedBean.votes}" 
+                         var="vote" rowKey="#{vote.id}" rowIndexVar="row"
+                         filteredValue="#{voteManagedBean.filterVotes}"
+                         rows="10" paginator="true" paginatorTemplate="{CurrentPageReport} {FirstPageLink}
+                         {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" 
+                         rowsPerPageTemplate="10,20,50">
+
+                <f:facet name="header">
+                    <p:outputPanel style="text-align: right;">
+                        <h:outputText value="Search all fields:" />
+                        <p:inputText id="globalFilter" onkeyup="PF('dataTableAllVote').filter()" style="width:300px" placeholder="Enter keyword"/>
+                    </p:outputPanel>
+                </f:facet> 
+
+                <p:column headerText="Vote ID" sortBy="#{vote.id}" filterBy="#{vote.id}" filterMatchMode="contains">
+                    <h:outputText value="#{vote.id}" />
+                </p:column>
+
+                <p:column headerText="Vote Unique" sortBy="#{vote.uniqueCode}" filterBy="#{vote.uniqueCode}" filterMatchMode="contains">
+                    <h:outputText value="#{vote.uniqueCode}" />
+                </p:column>
+
+                <p:column headerText="Vote State" sortBy="#{vote.votingState}" filterBy="#{vote.votingState}" filterMatchMode="contains">
+                    <h:outputText value="#{vote.votingState}" />
+                </p:column>
+
+                <p:column headerText="Candidate" >
+                    <p:commandLink update="formViewCandidate" oncomplete="PF('dialogViewCandidate').show()" title="View">
+                        <p:outputLabel value="View Candidate"/>
+                        <f:setPropertyActionListener value="#{vote}" target="#{voteManagedBean.selectVoteToView}"/>
+                    </p:commandLink>
+                </p:column>
+
+                <p:column headerText="Action" >
+                    <p:commandButton icon="ui-icon-mail-open" actionListener="#{voteManagedBean.openVote}" 
+                                     update="formAllVote:dataTableAllVote formAllVote:messages">
+                        <f:attribute name="voteToOpen" value="#{vote}"/>
+                        <p:confirm header="Confirmation" message="Are you sure you want to open Vote #{vote.uniqueCode}?" icon="ui-icon-alert" />
+                    </p:commandButton>
+
+                    <p:commandButton icon="ui-icon-mail-closed" actionListener="#{voteManagedBean.closeVote}" 
+                                     update="formAllVote:dataTableAllVote
+                                     formAllVote:messages">
+                        <f:attribute name="voteToClosed" value="#{vote}"/>
+                        <p:confirm header="Confirmation" message="Are you sure you want to closed Vote #{vote.uniqueCode}?" icon="ui-icon-alert" />
+                    </p:commandButton>
+                </p:column>
+
+            </p:dataTable>
+
+            <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+            </p:confirmDialog>
+
+        </h:form>
+
+        <h:form id="dialogCreateNewVote">
+            <p:dialog id="dialogCreateNewVote" widgetVar="dialogCreateNewVote" header="Create new vote" closable="true">
+
+                <p:messages id="messagesCreateNewVote" redisplay="false"/>
+
+                <p:row>
+                    <p:column>
+                        <p:outputLabel for="voteUniqueCode" value="Unique Code: "/>
+                    </p:column>
+                    <p:column>
+                        <p:inputText id="voteUniqueCode" value="#{voteManagedBean.newVote.uniqueCode}" required="true" requiredMessage="Unique Code is required">
+                            <f:validateLength minimum="6"/>
+                        </p:inputText>
+                    </p:column>
+                    <p:column>
+                        <p:message for="voteUniqueCode"/>
+                    </p:column>
+                </p:row><br/>
+                <p:row>
+                    <p:column>
+                        <p:outputLabel value="Candidate: "/>
+                    </p:column>
+
+                    <p:column>
+                        <p:selectManyCheckbox value ="#{voteManagedBean.newVote.candidate}" converter="candidateConverter">
+                            <f:selectItems value="#{voteManagedBean.selectItems}"/>
+                        </p:selectManyCheckbox>
+                    </p:column>
+                </p:row><br/><br/>
+
+                <p:row>
+                    <p:column colspan="3">
+                        <p:commandButton type="reset" value="Clear"/>
+                        &nbsp;
+                        <p:commandButton value="Create New Candidate" update="@form formAllVote:dataTableAllVote" 
+                                         actionListener="#{voteManagedBean.createNewVote}" 
+                                         oncomplete="PF('dialogCreateNewVote').show()"/>
+                    </p:column>
+                </p:row>
+            </p:dialog>
+        </h:form>
+
+        <h:form id="formViewCandidate" style="width: 43%">
+            <p:dialog id="dialogViewCandidate" widgetVar="dialogViewCandidate" header="View Candidate" closable="true">
+                <p:dataTable value="#{voteManagedBean.selectVoteToView.candidate}" var="candidate">
+                    <p:column headerText="Candidate ID">
+                        <h:outputText value="#{candidate.id}"/>
+                    </p:column>
+                    <p:column headerText="Candidate Name" style="width: 30%;">
+                        <h:outputText value="#{candidate.candidateName}"/>
+                    </p:column>
+                    <p:column headerText="Candidate Vote">
+                        <h:outputText value="#{candidate.vote}"/>
+                    </p:column>
+                </p:dataTable>
+            </p:dialog>
+        </h:form>
+    </ui:define>
 </ui:composition>
