@@ -97,7 +97,15 @@ public class VoterSessionBean implements VoterSessionBeanLocal {
     @Override
     public void updateVote(Vote vote) throws VoteNotFoundException{
         if(vote.getId()!=null){
-            em.merge(vote);
+            System.err.println("****Update Vote****"+vote.getCandidate().get(0).getVote());
+            
+            Vote voteToUpdate = getVoteByUniqueCode(vote.getUniqueCode());
+            
+            for(int x=0;x<voteToUpdate.getCandidate().size();x++){
+                voteToUpdate.getCandidate().get(x).setVote(vote.getCandidate().get(x).getVote());
+            }
+            
+            
         }else{
             throw new VoteNotFoundException("Vote ID provided is Invalid!");
         }

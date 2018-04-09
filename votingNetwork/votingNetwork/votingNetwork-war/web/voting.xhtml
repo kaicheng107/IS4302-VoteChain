@@ -19,7 +19,23 @@ and open the template in the editor.
             <p:layoutUnit position="center">
 
                 <h:form id="submitForm" style="padding-left: 38%;padding-top: 13%">
-
+                    <p:growl autoUpdate="true" />
+                    <p:outputLabel value="This are the candidate for this current vote:"/>
+                    <br/><br/>
+                    
+                    
+                    <p:row>
+                        <p:column>
+                            <p:selectOneRadio value="#{votingManagedBean.selectedCandidate}" converter="candidateConverter">
+                                <f:selectItems value="#{votingManagedBean.selectItems}"/>
+                            </p:selectOneRadio>
+                        </p:column>
+                    </p:row>
+                    <br/><br/>
+                    <p:row>
+                        <p:commandButton value="Submit Vote" actionListener="#{votingManagedBean.submitVote}"/>
+                    </p:row>
+                    
                 </h:form>
             </p:layoutUnit>
         </p:layout>
