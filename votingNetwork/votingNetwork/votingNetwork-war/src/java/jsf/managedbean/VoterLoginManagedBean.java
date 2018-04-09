@@ -7,6 +7,7 @@ package jsf.managedbean;
 
 import ebj.session.stateless.VoterSessionBeanLocal;
 import entity.Voter;
+import enumeration.VoterState;
 import exception.InvalidLoginCredentialException;
 import java.io.IOException;
 import javax.ejb.EJB;
@@ -39,12 +40,16 @@ public class VoterLoginManagedBean {
             System.err.println("****************Trying to Login*******************");
             
             Voter voter = voterSessionBeanLocal.voterLogin(getNric(), getPassword());
+            if(voter.getVoteState().equals(VoterState.ELIGIBLE)){
             FacesContext.getCurrentInstance().getExternalContext().getSession(true);
             FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("isLogin", true);
             FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("voter", voter);
             
             System.err.println("****************End of Login*******************");
             FacesContext.getCurrentInstance().getExternalContext().redirect("uniqueCode.xhtml");
+            }else{
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Voter "+voter.getFirstName()+" "+voter.getLastName()+" is not eligible for voting or have voted already!", null)); 
+            }
         }catch(InvalidLoginCredentialException ex){
            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Invalid login credential: " + ex.getMessage(), null)); 
         }

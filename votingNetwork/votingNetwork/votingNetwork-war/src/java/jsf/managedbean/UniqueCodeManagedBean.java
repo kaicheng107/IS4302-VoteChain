@@ -7,6 +7,7 @@ package jsf.managedbean;
 
 import ebj.session.stateless.VoterSessionBeanLocal;
 import entity.Vote;
+import enumeration.VotingState;
 import exception.VoteNotFoundException;
 import java.io.IOException;
 import javax.ejb.EJB;
@@ -40,9 +41,12 @@ public class UniqueCodeManagedBean {
         try{
             System.err.println("****************Trying to Query Unique Code*******************");
             Vote vote =voterSessionBeanLocal.getVoteByUniqueCode(getUniqueCode());
+            if(vote.getVotingState().equals(VotingState.OPEN)){
             FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("vote", vote);
             FacesContext.getCurrentInstance().getExternalContext().redirect("voting.xhtml");
-            
+            }else{
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Unique code have expired or have not open yet for voting!", null)); 
+            }
         }catch(VoteNotFoundException ex){
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Invalid Unique Code: " + ex.getMessage(), null)); 
         }

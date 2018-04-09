@@ -8,7 +8,9 @@ package jsf.managedbean;
 import ebj.session.stateless.VoterSessionBeanLocal;
 import entity.Candidate;
 import entity.Vote;
+import entity.Voter;
 import exception.VoteNotFoundException;
+import exception.VoterNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -50,7 +52,7 @@ public class VotingManagedBean {
     @PostConstruct
     public void postCanstruct() {
         vote = (Vote) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("vote");
-        System.err.println("******"+vote.getUniqueCode());
+        System.err.println("******" + vote.getUniqueCode());
         try {
             vote = voterSessionBeanLocal.getVoteByUniqueCode(vote.getUniqueCode());
         } catch (VoteNotFoundException ex) {
@@ -91,9 +93,12 @@ public class VotingManagedBean {
 
             voterSessionBeanLocal.updateVote(vote);
             selectedCandidate = new Candidate();
+
+            voterSessionBeanLocal.updateVoterStatus((Voter) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("voter"));
+
             FacesContext.getCurrentInstance().getExternalContext().redirect("done.xhtml");
 
-        } catch (VoteNotFoundException ex) {
+        } catch (VoteNotFoundException | VoterNotFoundException ex) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Unexpected error has occured when updating the vote :" + ex.getMessage(), null));
         }
 
