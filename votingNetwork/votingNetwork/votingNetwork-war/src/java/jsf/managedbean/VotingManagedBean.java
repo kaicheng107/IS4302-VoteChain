@@ -15,6 +15,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
@@ -48,9 +49,15 @@ public class VotingManagedBean {
 
     @PostConstruct
     public void postCanstruct() {
-        vote = (Vote) FacesContext.getCurrentInstance().getExternalContext().getFlash().get("vote");
-        FacesContext.getCurrentInstance().getExternalContext().getFlash().put("vote", vote);
+        vote = (Vote) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("vote");
+        System.err.println("******"+vote.getUniqueCode());
+        try {
+            vote = voterSessionBeanLocal.getVoteByUniqueCode(vote.getUniqueCode());
+        } catch (VoteNotFoundException ex) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Unexpected error: " + ex.getMessage(), null));
+        }
 
+        System.err.println("****************vote***********" + vote.getUniqueCode());
         listCandidate = vote.getCandidate();
 
         for (Candidate candidate : listCandidate) {
@@ -60,9 +67,15 @@ public class VotingManagedBean {
         FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("listCandidate", listCandidate);
     }
 
+    @PreDestroy
+    public void preDestroy() {
+        FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("listCandidate", null);
+        FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("vote", null);
+    }
+
     public void submitVote(ActionEvent event) throws IOException {
         if (selectedCandidate == null) {
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Please selected a candidate", null));
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Please select a candidate", null));
             return;
         }
 
@@ -71,7 +84,7 @@ public class VotingManagedBean {
             for (int x = 0; x < vote.getCandidate().size(); x++) {
                 if (vote.getCandidate().get(x).getId().equals(selectedCandidate.getId())) {
                     vote.getCandidate().get(x).setVote(vote.getCandidate().get(x).getVote() + 1);
-                    System.err.println(vote.getCandidate().get(x).getCandidateName()+"********"+vote.getCandidate().get(x).getVote());
+                    System.err.println(vote.getCandidate().get(x).getCandidateName() + "********" + vote.getCandidate().get(x).getVote());
                     break;
                 }
             }
@@ -79,7 +92,7 @@ public class VotingManagedBean {
             voterSessionBeanLocal.updateVote(vote);
             selectedCandidate = new Candidate();
             FacesContext.getCurrentInstance().getExternalContext().redirect("done.xhtml");
-            
+
         } catch (VoteNotFoundException ex) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Unexpected error has occured when updating the vote :" + ex.getMessage(), null));
         }

@@ -40,7 +40,7 @@ public class UniqueCodeManagedBean {
         try{
             System.err.println("****************Trying to Query Unique Code*******************");
             Vote vote =voterSessionBeanLocal.getVoteByUniqueCode(getUniqueCode());
-            FacesContext.getCurrentInstance().getExternalContext().getFlash().put("vote", vote);
+            FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("vote", vote);
             FacesContext.getCurrentInstance().getExternalContext().redirect("voting.xhtml");
             
         }catch(VoteNotFoundException ex){

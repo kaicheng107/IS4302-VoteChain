@@ -118,7 +118,9 @@ public class VoterSessionBean implements VoterSessionBeanLocal {
         System.err.println("****************Querying uniqueCode*******************");
         
         try {
-            return (Vote) query.getSingleResult();
+            Vote vote = (Vote) query.getSingleResult();
+            vote.getCandidate().size();
+            return vote;
         } catch (NoResultException | NonUniqueResultException ex) {
             throw new VoteNotFoundException("Vote Unique Code " + uniqueCode + " does not exist!");
         }

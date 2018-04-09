@@ -30,7 +30,7 @@ public class CandidateConverter implements Converter {
         try {
             List<Candidate> listCandidate = (List<Candidate>) context.getExternalContext().getSessionMap().get("listCandidate");
             for (Candidate candidate : listCandidate) {
-                if (candidate.getVote() == 0 && candidate.getCandidateName().equals(value)) {
+                if (candidate.getCandidateName().equals(value)) {
                     return candidate;
                 }
             }
