@@ -28,39 +28,43 @@ public class UpdateNricManagedBean {
 
     @EJB(name = "AdminSessionBeanLocal")
     private AdminSessionBeanLocal adminSessionBeanLocal;
-    
+
     /**
      * Creates a new instance of UpdateNricManagedBean
      */
     private Boolean notVoted;
     private Voter voter;
-    public UpdateNricManagedBean() {
-        voter = (Voter) FacesContext.getCurrentInstance().getExternalContext().getFlash().get("voter");
-        System.err.println("*********Getting NRIC***********"+voter.getNric()+"*******"+voter.getVoteState().toString());
-        FacesContext.getCurrentInstance().getExternalContext().getFlash().put("voter", voter);
-        if(voter.getVoteState().equals(VoterState.ELIGIBLE)){
+
+    public UpdateNricManagedBean() throws IOException {
+        voter = (Voter) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("voter");
+        
+        System.err.println("*********Getting NRIC***********" + voter.getNric() + "*******" + voter.getVoteState().toString());
+        
+        if (voter.getVoteState().equals(VoterState.ELIGIBLE)) {
             setNotVoted((Boolean) true);
-        }else{
+        } else {
             setNotVoted((Boolean) false);
         }
     }
-    
-    public void updateNric(ActionEvent event)throws IOException{
-        System.err.println("*********Update NRIC***********"+voter.getNric());
-        try{
-            
-        adminSessionBeanLocal.updateVoterStatus((Voter) FacesContext.getCurrentInstance().getExternalContext().getFlash().get("voter"));
-        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "The status of the voter have being updated!", null));
-        FacesContext.getCurrentInstance().getExternalContext().getFlash().setKeepMessages(true);
-        FacesContext.getCurrentInstance().getExternalContext().redirect("checkNric.xhtml");
-        }catch(VoterNotFoundException ex){
-        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Invalid NRIC: " + ex.getMessage(), null)); 
+
+    public void updateNric(ActionEvent event) throws IOException {
+        System.err.println("*********Update NRIC***********" + voter.getNric());
+        try {
+
+            adminSessionBeanLocal.updateVoterStatus((Voter) FacesContext.getCurrentInstance().getExternalContext().getFlash().get("voter"));
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "The status of the voter have being updated!", null));
+            FacesContext.getCurrentInstance().getExternalContext().getFlash().setKeepMessages(true);
+            FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("voter", null);
+            FacesContext.getCurrentInstance().getExternalContext().redirect("checkNric.xhtml");
+        } catch (VoterNotFoundException ex) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Invalid NRIC: " + ex.getMessage(), null));
         }
     }
-    
-    public void back(ActionEvent event)throws IOException{
+
+    public void back(ActionEvent event) throws IOException {
         FacesContext.getCurrentInstance().getExternalContext().redirect("checkNric.xhtml");
     }
+
     /**
      * @return the notVoted
      */
@@ -88,6 +92,5 @@ public class UpdateNricManagedBean {
     public void setVoter(Voter voter) {
         this.voter = voter;
     }
-    
-    
+
 }

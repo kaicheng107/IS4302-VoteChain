@@ -95,7 +95,7 @@ public class VotingManagedBean {
             selectedCandidate = new Candidate();
 
             voterSessionBeanLocal.updateVoterStatus((Voter) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("voter"));
-
+            FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("voted", true);
             FacesContext.getCurrentInstance().getExternalContext().redirect("done.xhtml");
 
         } catch (VoteNotFoundException | VoterNotFoundException ex) {

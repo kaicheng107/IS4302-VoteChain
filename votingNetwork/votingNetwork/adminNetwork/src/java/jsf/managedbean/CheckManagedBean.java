@@ -41,7 +41,7 @@ public class CheckManagedBean {
         try{
             System.err.println("****************Trying to Query NRIC*******************");
             Voter voter = adminSessionBeanLocal.findVoterByNric(getNric());
-            FacesContext.getCurrentInstance().getExternalContext().getFlash().put("voter", voter);
+            FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("voter", voter);
             FacesContext.getCurrentInstance().getExternalContext().redirect("updateNric.xhtml");
             
         }catch(VoterNotFoundException ex){

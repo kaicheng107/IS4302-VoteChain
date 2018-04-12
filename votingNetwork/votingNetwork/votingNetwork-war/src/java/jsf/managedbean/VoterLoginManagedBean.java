@@ -16,6 +16,7 @@ import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 /**
@@ -28,39 +29,47 @@ public class VoterLoginManagedBean {
 
     @EJB(name = "VoterSessionBeanLocal")
     private VoterSessionBeanLocal voterSessionBeanLocal;
-    
+
     private String nric;
     private String password;
-    
+
     public VoterLoginManagedBean() {
     }
-    
-    public void login(ActionEvent event) throws IOException{
-        try{
+
+    public void login(ActionEvent event) throws IOException {
+        try {
             System.err.println("****************Trying to Login*******************");
-            
+
             Voter voter = voterSessionBeanLocal.voterLogin(getNric(), getPassword());
-            if(voter.getVoteState().equals(VoterState.ELIGIBLE)){
-            FacesContext.getCurrentInstance().getExternalContext().getSession(true);
-            FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("isLogin", true);
-            FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("voter", voter);
-            
-            System.err.println("****************End of Login*******************");
-            FacesContext.getCurrentInstance().getExternalContext().redirect("uniqueCode.xhtml");
-            }else{
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Voter "+voter.getFirstName()+" "+voter.getLastName()+" is not eligible for voting or have voted already!", null)); 
+            if (voter.getVoteState().equals(VoterState.ELIGIBLE)) {
+                FacesContext.getCurrentInstance().getExternalContext().getSession(true);
+                FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("isLogin", true);
+                FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("voter", voter);
+                FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("voted", false);
+                
+                System.err.println("****************End of Login*******************");
+                FacesContext.getCurrentInstance().getExternalContext().redirect("uniqueCode.xhtml");
+            } else {
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Voter " + voter.getFirstName() + " " + voter.getLastName() + " is not eligible for voting or have voted already!", null));
             }
-        }catch(InvalidLoginCredentialException ex){
-           FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Invalid login credential: " + ex.getMessage(), null)); 
+        } catch (InvalidLoginCredentialException ex) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Invalid login credential: " + ex.getMessage(), null));
         }
     }
-    
-    public void logout(ActionEvent event) throws IOException
-    {
-        ((HttpSession)FacesContext.getCurrentInstance().getExternalContext().getSession(true)).invalidate();
+
+    public void logout(ActionEvent event) throws IOException {
+        ((HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true)).invalidate();
         FacesContext.getCurrentInstance().getExternalContext().redirect("index.xhtml");
     }
-    
+
+    public String imagePath() {
+        HttpServletRequest req = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+        String url = req.getRequestURL().toString();
+        String pathImg = url.substring(0, url.length() - req.getRequestURI().length()) + "/votingNetwork-war/images/assets/img_eld_logo.png";
+        System.out.println("*********Image Path using code**********"+pathImg);
+        return url.substring(0, url.length() - req.getRequestURI().length()) + "/votingNetwork-war/images/assets/img_eld_logo.png";
+    }
+
     /**
      * @return the nric
      */
@@ -88,5 +97,5 @@ public class VoterLoginManagedBean {
     public void setPassword(String password) {
         this.password = password;
     }
-    
+
 }
