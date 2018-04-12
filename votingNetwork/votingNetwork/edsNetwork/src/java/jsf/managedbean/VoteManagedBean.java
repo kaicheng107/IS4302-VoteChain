@@ -61,7 +61,11 @@ public class VoteManagedBean implements Serializable {
         listCandidate = eDSSessionBeanLocal.getAllCandidate();
 
         for (Candidate candidate : listCandidate) {
+            if(candidate.getVote()!=0){
+            
+            }else{
             selectItems.add(new SelectItem(candidate, candidate.getCandidateName()));
+            }
         }
 
         votes = eDSSessionBeanLocal.getAllVote();
