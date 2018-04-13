@@ -5,6 +5,7 @@
  */
 package ws.restful.datamodel;
 
+import javax.persistence.Entity;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
@@ -12,6 +13,7 @@ import javax.xml.bind.annotation.XmlType;
  *
  * @author KaiCheng
  */
+
 @XmlRootElement
 @XmlType(name = "candidateRest", propOrder = {
     "id",

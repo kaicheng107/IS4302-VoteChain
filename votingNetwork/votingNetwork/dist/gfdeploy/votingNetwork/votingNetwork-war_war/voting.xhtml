@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Voting...</title>
+    </h:head>
+    <h:body>
+
+        <p:layout fullPage="true">
+            <p:layoutUnit position="center">
+
+                <h:form id="submitForm" style="padding-left: 38%;padding-top: 13%">
+                    <p:growl autoUpdate="true" />
+                    <p:outputLabel value="This are the candidate for this current vote:"/>
+                    <br/><br/>
+                    
+                    
+                    <p:row>
+                        <p:column>
+                            <p:selectOneRadio value="#{votingManagedBean.selectedCandidate}" converter="candidateConverter">
+                                <f:selectItems value="#{votingManagedBean.selectItems}"/>
+                            </p:selectOneRadio>
+                        </p:column>
+                    </p:row>
+                    <br/><br/>
+                    <p:row>
+                        <p:commandButton value="Submit Vote" actionListener="#{votingManagedBean.submitVote}"/>
+                    </p:row>
+                    
+                </h:form>
+            </p:layoutUnit>
+        </p:layout>
+    </h:body>
+</html>

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <h:head>
+        <title>Update Of voting Status</title>
+    </h:head>
+    <h:body>
+        <p:layout fullPage="true">
+            <p:layoutUnit position="center" >
+                <p:panel rendered="#{updateNricManagedBean.notVoted == true}" styleClass="panelNoBorder" style="padding-left: 35%;padding-top: 10%">
+                    
+                    <p:outputLabel value="Do the NRIC belong to #{updateNricManagedBean.voter.firstName} #{updateNricManagedBean.voter.lastName}?"/>
+                    <br/><br/> 
+                    
+                    <p:outputLabel value="Voter has not voted!" style="margin-left: 8%"/>
+                    <br/>
+                    <p:outputLabel value="Do you wish to update the status to voted?"/>
+                    <br/><br/><br/> 
+                    <h:form id="updateForm" style="margin-left: 10%">
+                        
+                        <p:growl autoUpdate="true" />
+                        
+                        <p:commandButton update="updateForm" actionListener="#{updateNricManagedBean.updateNric}" value="Update"/>
+                        <br/><br/>
+                        <p:commandButton actionListener="#{updateNricManagedBean.back}" value="Back" style="margin-left: 1%"/>
+                    </h:form>
+                </p:panel>
+                <p:panel rendered="#{updateNricManagedBean.notVoted == false}" styleClass="ui-noborder"  style="padding-left: 35%;padding-top: 10%">
+                <p:outputLabel value="Do the NRIC belong to #{updateNricManagedBean.voter.firstName} #{updateNricManagedBean.voter.lastName}?"/>
+                    <br/><br/><br/>
+                    <p:outputLabel value="Voter has voted or is not eligible for voting!"/>
+                    <br/><br/>
+                    <h:form style="margin-left: 13%">
+                        <p:commandButton actionListener="#{updateNricManagedBean.back}" value="Back"/>
+                    </h:form>
+                </p:panel>
+            </p:layoutUnit>
+        </p:layout>
+    </h:body>
+</html>

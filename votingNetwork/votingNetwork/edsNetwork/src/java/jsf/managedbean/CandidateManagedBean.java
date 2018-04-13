@@ -20,6 +20,7 @@ import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 
+
 /**
  *
  * @author KaiCheng
@@ -50,14 +51,38 @@ public class CandidateManagedBean {
     }
     
     public void createNewCandidate(ActionEvent event) throws IOException{
-        getNewCandidate().setVote(0);
+        
+        
+        
+        try{
+            getNewCandidate().setVote(0);
+        
+        System.out.println("****************** candinate name = " + newCandidate.getCandidateName() );
+         System.out.println("****************** vote name = " + newCandidate.getVote() );
         Candidate candidate = eDSSessionBeanLocal.CreateCandidate(getNewCandidate());
+//        
+//        CandidateRest cr = new CandidateRest(candidate.getId().toString(), candidate.getCandidateName());
+//        
+//        CreateCandidate cc = new CreateCandidate();
+//        
+//        Response rs = cc.addCandidate(cr);
+//        
+//        if(rs.getStatus()!=200){
+//            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "New Candidate not created successfully (Candidate ID: " + candidate.getId().toString() + ")", null));
+//        }
+        
         
         getCandidateList().add(candidate);
         
         setNewCandidate(new Candidate());
         
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "New Candidate created successfully (Candidate ID: " + candidate.getId().toString() + ")", null));
+            
+        }catch(Exception ex){
+             System.out.println("****************** Exception in managed bean*****" );
+             ex.printStackTrace();
+        }
+        
     }
 
     /**
