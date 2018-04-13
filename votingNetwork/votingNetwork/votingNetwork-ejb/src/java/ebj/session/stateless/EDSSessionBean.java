@@ -81,6 +81,11 @@ public class EDSSessionBean implements EDSSessionBeanLocal {
     public List<Candidate> getAllCandidate() {
         return em.createQuery("SELECT c FROM Candidate c ORDER BY c.id ASC").getResultList();
     }
+    
+    @Override
+    public List<Candidate> getAllZeroVoteCandidate() {
+        return em.createQuery("SELECT c FROM Candidate c WHERE c.vote=0 ORDER BY c.id ASC").getResultList();
+    }
 
     //Use for create Vote
     @Override

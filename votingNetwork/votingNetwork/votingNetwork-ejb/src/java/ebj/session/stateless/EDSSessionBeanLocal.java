@@ -40,4 +40,6 @@ public interface EDSSessionBeanLocal {
 
     public List<Vote> getAllVote();
 
+    public List<Candidate> getAllZeroVoteCandidate();
+
 }

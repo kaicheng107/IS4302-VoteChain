@@ -34,7 +34,7 @@ import javax.faces.view.ViewScoped;
  * @author KaiCheng
  */
 @Named(value = "voteManagedBean")
-@ViewScoped
+@RequestScoped
 public class VoteManagedBean implements Serializable {
 
     @EJB(name = "EDSSessionBeanLocal")
@@ -58,14 +58,10 @@ public class VoteManagedBean implements Serializable {
 
     @PostConstruct
     public void postConstruct() {
-        listCandidate = eDSSessionBeanLocal.getAllCandidate();
+        listCandidate = eDSSessionBeanLocal.getAllZeroVoteCandidate();
 
         for (Candidate candidate : listCandidate) {
-            if(candidate.getVote()!=0){
-            
-            }else{
             selectItems.add(new SelectItem(candidate, candidate.getCandidateName()));
-            }
         }
 
         votes = eDSSessionBeanLocal.getAllVote();
