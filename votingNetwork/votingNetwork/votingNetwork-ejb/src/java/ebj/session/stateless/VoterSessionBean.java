@@ -116,19 +116,20 @@ public class VoterSessionBean implements VoterSessionBeanLocal {
                      Client client = ClientBuilder.newClient();
 
                     WebTarget target = client.target("http://localhost:3001/api/org.acme.voting.PlaceVotes");
-                    System.out.println("********************* REquesting ********" + target.getUri());
+                    System.err.println("********************* Requesting ********");
+                    
                     String candidate = "resource:org.acme.voting.Candidate#";
                     PlaceVoteModel pvm = new PlaceVoteModel(voteToUpdate.getUniqueCode(), candidate.concat(voteToUpdate.getCandidate().get(x).getId().toString()));
 
                     Response rs = target.request().post(Entity.json(pvm));
                     if (rs.getStatus() != 200) {
-                        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "New vote creation fail, please contact system admin! " + rs.getStatus(), null));
+                        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Update of the Vote has fail! Error Code:  " + rs.getStatus(), null));
                     }
                     
                     client.close();
                    
-                }
-            }
+                }//end of outside IF
+            }//end of For loop
 
         } else {
             throw new VoteNotFoundException("Vote ID provided is Invalid!");
