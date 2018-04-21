@@ -32,6 +32,8 @@ import javax.ws.rs.client.ResponseProcessingException;
 import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.Response;
 import ws.restful.datamodel.CandidateRest;
+import ws.restful.datamodel.InitRest;
+import ws.restful.datamodel.PlaceVoteModel;
 
 /**
  *
@@ -87,6 +89,17 @@ public class DataInitSessionBean {
             voterSessionBeanLocal.CreateVoter(new Voter("S8746590G", "password", 9253748, "Jeslyn", "Low", VoterState.ELIGIBLE, Sex.FEMALE, new Address("Blk 724 #11-03", "Pasir Ris", "Singapore", "144567", "Pasir Ris"), "voterHub@voting-network"));
             voterSessionBeanLocal.CreateVoter(new Voter("S9674829F", "password", 92679354, "Maria", "Alvarez", VoterState.ELIGIBLE, Sex.FEMALE, new Address("Blk 14 #14-16", "Bukit Batok", "Singapore", "842014", "Bukit Batok"), "voterHub@voting-network"));
             
+            Client client = ClientBuilder.newClient();
+
+                    WebTarget target = client.target("http://localhost:3000/api/org.acme.voting.SetupDemo");
+                    System.err.println("********************* Requesting ********");
+                    
+                    String candidate = "resource:org.acme.voting.Candidate#";
+                    InitRest ir = new InitRest();
+
+                    Response rs = target.request().post(Entity.json(ir));
+                                        
+                    client.close();
             
         }catch(Exception ex){
             System.err.println("********** DataInitializationSessionBean.initializeData(): An error has occurred while loading initial test data: " + ex.getMessage());

@@ -51,7 +51,7 @@ public class UpdateNricManagedBean {
         System.err.println("*********Update NRIC***********" + voter.getNric());
         try {
 
-            adminSessionBeanLocal.updateVoterStatus((Voter) FacesContext.getCurrentInstance().getExternalContext().getFlash().get("voter"));
+            adminSessionBeanLocal.updateVoterStatus((Voter) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("voter"));
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "The status of the voter have being updated!", null));
             FacesContext.getCurrentInstance().getExternalContext().getFlash().setKeepMessages(true);
             FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("voter", null);

@@ -19,20 +19,22 @@ and open the template in the editor.
 
                 <h:form id="submitForm" style="padding-left: 38%;padding-top: 13%">
                     <p:growl autoUpdate="true" />
-                    <p:outputLabel value="This are the candidate for this current vote:"/>
+                    <p:outputLabel value="Step 2, Select one of the Candidate!" style="padding-left: 7%"/>
+                    <br/>
+                    <p:outputLabel value="These are the candidate participating in this election:"/>
                     <br/><br/>
                     
                     
                     <p:row>
                         <p:column>
-                            <p:selectOneRadio value="#{votingManagedBean.selectedCandidate}" converter="candidateConverter">
+                            <p:selectOneRadio value="#{votingManagedBean.selectedCandidate}" converter="candidateConverter" style="padding-left: 10%">
                                 <f:selectItems value="#{votingManagedBean.selectItems}"/>
                             </p:selectOneRadio>
                         </p:column>
                     </p:row>
                     <br/><br/>
                     <p:row>
-                        <p:commandButton value="Submit Vote" actionListener="#{votingManagedBean.submitVote}"/>
+                        <p:commandButton value="Submit Vote" actionListener="#{votingManagedBean.submitVote}" style="margin-left: 13%"/>
                     </p:row>
                     
                 </h:form>
