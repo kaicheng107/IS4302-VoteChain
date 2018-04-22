@@ -17,7 +17,7 @@ Software Used:
 ## Installing
 
 Follow the order above for installation, `GlassFish` is together with the bundle download of NetBean.
-1. For Java SE be load the version 8 as Java SE 9 is not compatible with NetBeans 8.2
+1. For Java SE, download version 8 as Java SE 9 is not compatible with NetBeans 8.2
 2. 'MySQL Connector' does not require installation. Just extract and copy 'mysql-connector-java-5.1.45-bin.jar' into these two folders: 1) NetBeans installation folder - 
 ```
 "C:\Program Files\NetBeans 8.2\ide\modules\ext";
