@@ -12,8 +12,9 @@
             <file>file:/C:/Users/lenovo/Desktop/votingNetwork/votingNetwork/votingNetwork-ejb/src/java/ebj/session/stateless/AdminSessionBeanLocal.java</file>
         </group>
         <group name="Project IS4303">
-            <file>file:/C:/Users/lenovo/Documents/GitHub/IS4302-VoteChain/votingNetwork/votingNetwork/votingNetwork-ejb/src/java/ws/restful/datamodel/CandidateRest.java</file>
             <file>file:/C:/Users/lenovo/Documents/GitHub/IS4302-VoteChain/votingNetwork/votingNetwork/votingNetwork-ejb/src/java/ws/restful/datamodel/InitRest.java</file>
+            <file>file:/C:/Users/lenovo/Documents/GitHub/IS4302-VoteChain/votingNetwork/votingNetwork/votingNetwork-ejb/src/java/ws/restful/datamodel/CandidateRest.java</file>
+            <file>file:/C:/Users/lenovo/Documents/GitHub/IS4302-VoteChain/votingNetwork/votingNetwork/votingNetwork-ejb/setup/glassfish-resources.xml</file>
         </group>
     </open-files>
 </project-private>
