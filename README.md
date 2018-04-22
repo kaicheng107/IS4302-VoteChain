@@ -141,14 +141,37 @@ composer-rest-server -c voterHub@voting-network -p 3001
 ```
 Please start the composer rest server at different `terminal` so that both of them can run.
 Please follow the port strictly as it is being map to `Netbean` as follow, else there is a chance that it will not work.
-The intend web application url is
+This is the grammar for the localhost is as follow:
 ```
 netbeanLocalHost/war Name
 ```
+The intend web application url is
 ```
 http://localhost:8080/votingNetwork-war
 http://localhost:8080/edsNetwork/
 http://localhost:8080/adminNetwork
 ```
 Now everything is setting up, Have Fun!
+
 ## Common Bug
+* There is some possible bug that may occured when using `Netbean 8.2` as the glassfish may occur some bug here are
+```
+javax.servlet.ServletException: org.glassfish.jersey.server.ContainerException: java.lang.NoClassDefFoundError: com/fasterxml/jackson/module/jaxb/JaxbAnnotationIntrospector
+```
+This is a post to fixed the bug
+```
+https://stackoverflow.com/questions/31275480/glassfish-4-rest-xml-working-json-error/31276156
+```
+To download the file you can go to
+```
+http://book2s.com/java/jar/download-jar-file-j.html
+```
+
+* Some other bug is
+```
+java.lang.NoClassDefFoundError: Could not initialize class org.eclipse.persistence.jaxb.BeanValidationHelper
+```
+This post will help to fixed the bug
+```
+https://www.ivonet.nl/2016/09/06/Could%20not%20initialize%20class%20org.eclipse.persistence.jaxb.BeanValidationHelper/
+```
