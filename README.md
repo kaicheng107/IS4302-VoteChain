@@ -101,9 +101,54 @@ composer-rest-server -c admin1@voting-network
 2. Once the folder is open you will mostly recevied a few error message.
 * Missing Libraries for the web application common missing libraries are `PrimeFaces 6.1` and the `theme jar` missing, for `Primefaces 6.1` you can go download it at [here](https://www.primefaces.org/downloads/), where you can download `primefaces-6.1.jar` and add it to the libraries. After download the file recommanded location is `~\NetBeans 8.2\enterprise\modules\ext\primefaces` where all the libraries for primefaces are. After which go back to `netbean` go to the Tools>Libraries and open up the Libraries, after which click on `New Library...` and create a new Library for primfaces 6.1, recommended naming convention is `PrimeFaces 6.2`, after which add the 'Jar file' that you have just downloaded. Finally go back to the web application that have missing `PrimeFaces 6.1`, right click `properties>Libraries` and remove the broken library and add newly created library. Do it for all of it.
 * For the missing 'theme jar', same as `PrimeFaces 6.1`, right click `properties>Libraries` remove the broken library and click on the button at the side `Add JAR/folder` go the the gitfile that you download in the votingNetwork folder there is a copy of the theme use, apply it to all of the Web Application that is missing it.
-* The `ejb` module will still be red, because of the missing JDBC resource from the database, go to the Services>Databases, right click on MySQL Server and click on `Create database`, in the new Database name section enter : `votingnetwork`, afterwhich click on Grant Full Access To `mysql.sys@localhost`
+* The `ejb` module will still be red, because of the missing JDBC resource from the database, go to the Services>Databases, right click on MySQL Server and click on `Create database`, in the new Database name section enter `votingnetwork`, afterwhich click on Grant Full Access To `mysql.sys@localhost`
 * One last common error that will occur is that the server resource password in the ejb is not your password for the databases, go to the projects tab>votingNetwork-ejb>server Resources>glassfish-resources.xml and change the password value to you password for MySQL databases.
 3. After cleaning all the problem you can right click on votingNetwork(The triangle icon) to click on deploy. After the deployment is done, `MySQL` and `composer-playground` will have data being generated.
-4. `Switch back to the Cloud9 IDE`, we can
-
+4. `Switch back to the Cloud9 IDE`, we can now stop the Composer Rest Server by `Ctr-c`.
+5. After the data are being generated we can now create the participant Card and `composer rest server` for each of them
+6. To issue am identity open a `new terminal` and using the above `point 6` method, after which run the following command:
+This is the grammer for the command
+```
+composer identity issue –c <admin card> -u <username to be issued> -a <participant to be attached to>
+```
+so a example for the voterHub will be :
+```
+composer identity issue -c admin1@voting-network -u voterHub -a org.acme.voting.VoterHub#voterHub
+```
+Do replace the admin card with your admin card that you have created.
+After which  we will have to import the business card to the network:
+```
+composer card import -f voterHub@voting-network.card
+```
+The general grammar is at the above `point 8`.
+7. Similar to point 6 we will have to generate a identity for the EDS: the command is as follow:
+```
+composer identity issue -c admin1@voting-network -u EDS -a org.acme.voting.EDS#1
+```
+we have to import the card too:
+```
+composer card import -f EDS@voting-network.card
+```
+Please edit according to your admin Card details
+8.Finally you can start a the `composer rest server` for the `VoterHub` and `EDS` the command is as follow:
+For EDS:
+```
+composer-rest-server -c EDS@voting-network
+```
+For VoterHub:
+```
+composer-rest-server -c voterHub@voting-network -p 3001
+```
+Please start the composer rest server at different `terminal` so that both of them can run.
+Please follow the port strictly as it is being map to `Netbean` as follow, else there is a chance that it will not work.
+The intend web application url is
+```
+netbeanLocalHost/war Name
+```
+```
+http://localhost:8080/votingNetwork-war
+http://localhost:8080/edsNetwork/
+http://localhost:8080/adminNetwork
+```
+Now everything is setting up, Have Fun!
 ## Common Bug
