@@ -8,7 +8,7 @@ Software Used:
 * [NetBean IDE 8.2](https://netbeans.org/downloads)     - The Midware Used
 * GlassFish 4.1.1     - The Server Used for deployment of the Netbean
 * [Primefaces 6.1](https://www.primefaces.org/downloads/)      - The front-end add-on for interfaces
-* [MySQL](http://dev.mysql.com/downloads/mysql)               - The Common backend for Application
+* [MySQL 5.7](http://dev.mysql.com/downloads/mysql)               - The Common backend for Application
 * [MySQL Connector/J](	http://dev.mysql.com/downloads/connector/j)   - A connector for MySQL to NetBean
 
 * [Vagrant](https://github.com/suenchunhui/fabric-tutorial-vagrant)		      - The Virtual Machine to run a Hyperledger Fabric
